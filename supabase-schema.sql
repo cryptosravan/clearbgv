@@ -5,6 +5,10 @@ create extension if not exists pgcrypto;
 
 create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
+  name text,
+  email text,
+  phone text,
+  score integer,
   profile_data jsonb not null default '{}'::jsonb,
   settings jsonb not null default '{}'::jsonb,
   readiness_score integer,
