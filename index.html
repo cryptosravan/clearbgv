@@ -403,8 +403,8 @@ button,input,select,textarea{font-family:'Inter',sans-serif}
       <a href="#product">Product</a><a href="#how-it-works">How It Works</a><a href="#features">Features</a><a href="#resources">Resources</a><a href="#about">About Us</a>
     </div>
     <div style="display:flex;gap:12px">
-      <button class="btn btn-outline btn-sm" onclick="show('s-onboard1')">Log in</button>
-      <button class="btn btn-primary btn-sm" onclick="show('s-onboard1')">Join Beta</button>
+      <button class="btn btn-outline btn-sm" onclick="openAuth('login')">Log in</button>
+      <button class="btn btn-primary btn-sm" onclick="openAuth('signup')">Join Beta</button>
     </div>
   </nav>
 
@@ -414,8 +414,8 @@ button,input,select,textarea{font-family:'Inter',sans-serif}
       <h1 class="hero-title">Clear Your Background<br>Verification <span>Before</span><br>Your Employer Does</h1>
       <p class="hero-sub">ClearBGV helps you organise your career documents, identify potential issues, and get BGV ready for a smooth and stress-free onboarding.</p>
       <div class="hero-btns">
-        <button class="btn btn-primary btn-lg" onclick="show('s-onboard1')">Check My BGV Readiness →</button>
-        <button class="btn btn-outline btn-lg" onclick="show('s-onboard1')">Join Beta — It's Free</button>
+        <button class="btn btn-primary btn-lg" onclick="openAuth('signup')">Check My BGV Readiness →</button>
+        <button class="btn btn-outline btn-lg" onclick="openAuth('signup')">Join Beta — It's Free</button>
       </div>
       <div style="margin-top:16px;display:flex;align-items:center;gap:6px;font-size:13px;color:var(--green)">✅ Secure. Private. Trusted by Professionals.</div>
     </div>
@@ -2714,17 +2714,28 @@ renderReadinessScore();
   }
   function closeAuth(){const r=qs('#cb-auth-root');if(r)r.innerHTML='';}
   async function login(){
-    if(!sb){demoLogin();return;}
-    const email=qs('#cb-email').value.trim(), password=qs('#cb-password').value;
-    const {error}=await sb.auth.signInWithPassword({email,password}); if(error){authUI('login',error.message);return;} closeAuth(); await bootSession(); notify('Welcome back.','success'); show('s-dashboard');
+    try{
+      if(!sb){demoLogin();return;}
+      const email=qs('#cb-email').value.trim(), password=qs('#cb-password').value;
+      if(!email || !password){authUI('login','Enter your email and password.');return;}
+      const {error}=await sb.auth.signInWithPassword({email,password});
+      if(error){authUI('login',error.message);return;}
+      closeAuth();
+      await bootSession();
+      notify('Welcome back.','success');
+      show('s-dashboard');
+    }catch(err){authUI('login',err?.message||'Login failed. Please try again.');}
   }
   async function signup(){
-    if(!sb){demoSignup();return;}
-    const name=qs('#cb-name').value.trim(), email=qs('#cb-email').value.trim(), password=qs('#cb-password').value, phone=qs('#cb-phone')?.value.trim()||'';
-    const {data,error}=await sb.auth.signUp({email,password,options:{data:{name,phone},emailRedirectTo:location.origin+location.pathname}});
-    if(error){authUI('signup',error.message);return;}
-    if(data.session){closeAuth();await bootSession();show('s-onboard1');notify('Account created. Complete your profile to continue.','success');}
-    else {authUI('login','Account created. Check your email to confirm your account, then log in.');}
+    try{
+      if(!sb){demoSignup();return;}
+      const name=qs('#cb-name').value.trim(), email=qs('#cb-email').value.trim(), password=qs('#cb-password').value, phone=qs('#cb-phone')?.value.trim()||'';
+      if(!name || !email || password.length<8){authUI('signup','Enter your name, a valid email, and a password with at least 8 characters.');return;}
+      const {data,error}=await sb.auth.signUp({email,password,options:{data:{name,phone},emailRedirectTo:location.origin+location.pathname}});
+      if(error){authUI('signup',error.message);return;}
+      if(data.session){closeAuth();await bootSession();show('s-onboard1');notify('Account created. Complete your profile to continue.','success');}
+      else {authUI('login','Account created. Check your email to confirm your account, then log in.');}
+    }catch(err){authUI('signup',err?.message||'Registration failed. Please try again.');}
   }
   async function forgotPassword(){
     if(!sb){notify('Configure Supabase to enable password reset emails.','warning');return;}
