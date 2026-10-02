@@ -22,6 +22,7 @@ create table if not exists public.employment (
   dor date,
   emp_id text,
   verified boolean not null default false,
+  data jsonb not null default '{}'::jsonb,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -34,6 +35,7 @@ create table if not exists public.education (
   year text,
   score text,
   verified boolean not null default false,
+  data jsonb not null default '{}'::jsonb,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -49,6 +51,8 @@ create table if not exists public.addresses (
   pincode text,
   from_date date,
   to_date date,
+  address text,
+  verified boolean not null default false,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -61,6 +65,7 @@ create table if not exists public.documents (
   file_path text,
   status text not null default 'uploaded',
   metadata jsonb not null default '{}'::jsonb,
+  uploaded_on timestamptz,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -85,6 +90,8 @@ create table if not exists public.reminders (
   due timestamptz,
   channel text not null default 'email',
   done boolean not null default false,
+  type text,
+  priority text not null default 'medium',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -115,6 +122,8 @@ create table if not exists public.support_tickets (
   user_id uuid not null references auth.users(id) on delete cascade,
   subject text,
   message text not null,
+  category text,
+  priority text not null default 'normal',
   status text not null default 'open',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -232,3 +241,6 @@ with check (bucket_id = 'clearbgv-documents' and (storage.foldername(name))[1] =
 drop policy if exists "documents storage own delete" on storage.objects;
 create policy "documents storage own delete" on storage.objects for delete to authenticated
 using (bucket_id = 'clearbgv-documents' and (storage.foldername(name))[1] = (auth.uid())::text);
+
+-- App payload compatibility columns are included above (employment/education data,
+-- address verification, reminder type/priority, document uploaded_on, support metadata).
