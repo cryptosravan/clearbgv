@@ -1,4 +1,4 @@
-const ORIGIN = "https://raw.githubusercontent.com/cryptosravan/clearbgv/8b51049ddae2c1cc4b908fa71451e55cacbbcd3d";
+const ORIGIN = "https://raw.githubusercontent.com/cryptosravan/clearbgv/cfdad80ae19226430ddb2667d80aaa93d8e5128a";
 async function serve(path) {
   const upstream = await fetch(ORIGIN + path, { headers: { "User-Agent": "ClearBGV-Pages" } });
   const headers = new Headers(upstream.headers);
