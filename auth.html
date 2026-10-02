@@ -1,73 +1,23 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ClearBGV — Login / Create Account</title>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ClearBGV — Account</title>
 <style>
-:root{--blue:#1a56db;--navy:#0a1628;--green:#16a34a;--text:#1a2332;--muted:#64748b;--border:#e2e8f0}
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;background:linear-gradient(135deg,#f8fbff,#eef5ff);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--text);display:grid;place-items:center;padding:20px}
-.card{width:min(460px,100%);background:#fff;border:1px solid var(--border);border-radius:20px;box-shadow:0 24px 70px rgba(15,23,42,.12);overflow:hidden}
-.head{padding:28px 30px 18px;border-bottom:1px solid var(--border)}
-.brand{font-size:26px;font-weight:800;color:var(--navy)} .brand span{color:var(--green)}
-.sub{font-size:13px;color:var(--muted);margin-top:4px}
-.body{padding:26px 30px 30px}
-.tabs{display:flex;gap:8px;background:#f1f5f9;padding:5px;border-radius:10px;margin-bottom:20px}
-.tabs a{flex:1;text-align:center;padding:10px;border-radius:7px;text-decoration:none;color:#475569;font-size:13px;font-weight:700}
-.tabs a.active{background:#fff;color:var(--blue);box-shadow:0 2px 8px rgba(15,23,42,.08)}
-form{display:none}.mode-login #login-form{display:block}.mode-signup #signup-form{display:block}
-label{display:block;font-size:13px;font-weight:600;margin:0 0 7px}
-input{width:100%;padding:12px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;outline:none;margin-bottom:16px}
-input:focus{border-color:#8fb1ff;box-shadow:0 0 0 3px #e8f0fe}
-button{width:100%;padding:13px 16px;border:0;border-radius:9px;background:var(--blue);color:#fff;font-weight:700;font-size:14px;cursor:pointer}
-.alt{text-align:center;margin-top:14px;font-size:12px;color:var(--muted)}
-.alt a{color:var(--blue);font-weight:700}
-.note{margin-top:18px;padding:12px;border-radius:9px;background:#f8fafc;color:#64748b;font-size:11px;line-height:1.55}
-</style>
-</head>
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:#eef5ff;font-family:system-ui,sans-serif;color:#172033}.card{width:min(460px,calc(100% - 32px));background:#fff;border:1px solid #dfe6ef;border-radius:20px;padding:28px;box-shadow:0 24px 70px rgba(15,23,42,.12)}.brand{font-size:28px;font-weight:800}.brand span{color:#16a34a}.sub{color:#64748b;font-size:13px;margin-top:4px}.tabs{display:flex;gap:8px;margin:24px 0 18px}.tabs a{flex:1;padding:11px;text-align:center;text-decoration:none;background:#f1f5f9;border-radius:9px;color:#334155;font-weight:700;font-size:13px}.tabs a.active{background:#e8f0fe;color:#1a56db}.form{display:none}.login .form-login,.signup .form-signup{display:block}label{display:block;font-size:13px;font-weight:700;margin:12px 0 6px}input{width:100%;padding:12px;border:1px solid #dbe3ec;border-radius:9px;font-size:14px}button{width:100%;margin-top:18px;padding:13px;border:0;border-radius:9px;background:#1a56db;color:#fff;font-weight:700;cursor:pointer}.msg{display:none;padding:11px;border-radius:9px;margin:12px 0;font-size:12px;line-height:1.5}.error{background:#fff1f2;color:#be123c}.success{background:#f0fdf4;color:#15803d}.show{display:block}.back{margin-top:18px;text-align:center;font-size:12px}.back a{color:#1a56db}
+</style></head>
 <body>
-<div class="card" id="card">
-  <div class="head">
-    <div class="brand">Clear<span>BGV</span></div>
-    <div class="sub">Prepare. Verify. Proceed.</div>
-  </div>
-  <div class="body">
-    <div class="tabs">
-      <a href="?mode=login" id="loginTab">Log in</a>
-      <a href="?mode=signup" id="signupTab">Create account</a>
-    </div>
-
-    <form id="login-form" method="post" action="/api/login">
-      <label>Email address</label>
-      <input name="email" type="email" autocomplete="email" required placeholder="you@example.com">
-      <label>Password</label>
-      <input name="password" type="password" autocomplete="current-password" required placeholder="Your password">
-      <button type="submit">Log in to ClearBGV</button>
-      <div class="alt"><a href="/?auth=reset">Forgot password?</a></div>
-    </form>
-
-    <form id="signup-form" method="post" action="/api/signup">
-      <label>Full name</label>
-      <input name="name" type="text" autocomplete="name" required placeholder="Your full name">
-      <label>Email address</label>
-      <input name="email" type="email" autocomplete="email" required placeholder="you@example.com">
-      <label>Mobile number</label>
-      <input name="phone" type="tel" autocomplete="tel" placeholder="+91 98765 43210">
-      <label>Password</label>
-      <input name="password" type="password" autocomplete="new-password" required minlength="8" placeholder="At least 8 characters">
-      <button type="submit">Create my ClearBGV account</button>
-    </form>
-
-    <div class="note">Your ClearBGV account stores your profile and verification-readiness data in your private account space. Document storage remains private.</div>
-    <div class="alt" style="margin-top:18px"><a href="/">← Back to ClearBGV</a></div>
-  </div>
-</div>
+<div class="card" id="card"><div class="brand">Clear<span>BGV</span></div><div class="sub">Prepare. Verify. Proceed.</div>
+<div class="tabs"><a id="loginTab" href="?mode=login">Log in</a><a id="signupTab" href="?mode=signup">Create account</a></div>
+<div id="err" class="msg error"></div><div id="ok" class="msg success"></div>
+<form class="form form-login" id="loginForm"><label>Email</label><input id="le" type="email" required autocomplete="email" placeholder="you@example.com"><label>Password</label><input id="lp" type="password" required autocomplete="current-password" placeholder="Your password"><button>Log in to ClearBGV</button><div class="back"><a href="#" id="forgot">Forgot password?</a></div></form>
+<form class="form form-signup" id="signupForm"><label>Full name</label><input id="sn" required autocomplete="name" placeholder="Your full name"><label>Email</label><input id="se" type="email" required autocomplete="email" placeholder="you@example.com"><label>Mobile</label><input id="sp" autocomplete="tel" placeholder="+91 98765 43210"><label>Password</label><input id="sw" type="password" required minlength="8" autocomplete="new-password" placeholder="At least 8 characters"><button>Create my ClearBGV account</button></form>
+<div class="back"><a href="/">← Back to ClearBGV</a></div></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/supabase-config.js"></script>
 <script>
-const params=new URLSearchParams(location.search);
-const mode=params.get('mode')==='signup'?'signup':'login';
-document.getElementById('card').classList.add('mode-'+mode);
-document.getElementById(mode==='signup'?'signupTab':'loginTab').classList.add('active');
-</script>
-</body>
-</html>
+const m=new URLSearchParams(location.search).get("mode")==="signup"?"signup":"login";document.getElementById("card").className+=" "+m;document.getElementById(m==="signup"?"signupTab":"loginTab").classList.add("active");
+const err=document.getElementById("err"),ok=document.getElementById("ok");function fail(t){ok.classList.remove("show");err.textContent=t;err.classList.add("show")}function good(t){err.classList.remove("show");ok.textContent=t;ok.classList.add("show")}
+const cfg=window.CLEARBGV_CONFIG||{},sb=window.supabase&&cfg.SUPABASE_URL&&cfg.SUPABASE_ANON_KEY?window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY):null;if(!sb)fail("Account service is unavailable.");
+loginForm.addEventListener("submit",async e=>{e.preventDefault();if(!sb)return;const b=e.submitter;b.disabled=true;const{error}=await sb.auth.signInWithPassword({email:le.value.trim(),password:lp.value});b.disabled=false;if(error)return fail(error.message);location.href="/";});
+signupForm.addEventListener("submit",async e=>{e.preventDefault();if(!sb)return;const b=e.submitter;b.disabled=true;const{data,error}=await sb.auth.signUp({email:se.value.trim(),password:sw.value,options:{data:{name:sn.value.trim(),phone:sp.value.trim()},emailRedirectTo:location.origin+"/"}});b.disabled=false;if(error)return fail(error.message);if(data.session)return location.href="/";good("Account created. Check your email to confirm it, then log in.");});
+forgot.addEventListener("click",async e=>{e.preventDefault();if(!sb)return;const email=le.value.trim();if(!email)return fail("Enter your email first.");const{error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin+"/"});if(error)fail(error.message);else good("Password reset email sent.");});
+</script></body></html>
